@@ -1,4 +1,5 @@
 import PromoCard from '../components/PromoCard';
+import { useState } from 'react';
 
 function scrollLeftPromos() {
   const container = document.getElementById("promo-scroll-promos");
@@ -20,6 +21,32 @@ function scrollRightBest() {
 }
 
 export default function Home() {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    setCartItems((prev) => {
+      const existing = prev.find((i) => i.title === item.title);
+      if (existing) {
+        return prev.map((i) =>
+          i.title === item.title ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      } else {
+        return [...prev, { ...item, quantity: 1 }];
+      }
+    });
+  };
+
+  const removeFromCart = (title) => {
+    setCartItems((prev) =>
+      prev
+        .map((i) =>
+          i.title === title ? { ...i, quantity: i.quantity - 1 } : i
+        )
+        .filter((i) => i.quantity > 0)
+    );
+  };
+
+  const total = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
    return (
     <><div className="overflow-x-hidden"><div className="text-center p-10 bg-gradient-to-b from-red-100 to-white min-screen">
       <div className="max-md mx-auto">
@@ -44,14 +71,14 @@ export default function Home() {
         ◀</button>
         {/*Promociones*/}
         <div id="promo-scroll-promos" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4" style={{ maxWidth: '1472px' }}>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" />
-          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" />
-          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png"/>
-          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png"/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png"/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png"/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png"/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png"/>
+          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" onAdd={addToCart} />
+          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" onAdd={addToCart}/>
+          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" onAdd={addToCart}/>
+          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" onAdd={addToCart}/>
+          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
         </div>
         {/* Flecha derecha */}
         <button
@@ -71,14 +98,14 @@ export default function Home() {
         ◀</button>
         <h2 className="text-3xl font-bold text-red-600 mb-6">🔥 Más Vendidos</h2>
         <div id="promo-scroll-vendidos" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4"  style={{ maxWidth: '1472px' }}>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" />
-          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" />
-          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png"/>
-          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png"/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png"/>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" />
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" />
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" />
+          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
           
         </div>
         <button
@@ -114,6 +141,31 @@ export default function Home() {
       </div>
       <p className="text-center text-xs mt-10">&copy; 2025 Wok N Roll. Todos los derechos reservados.</p>
     </footer>
-    </div></>
+    </div>
+    {/*Carrito*/}
+    <div className="fixed bottom-4 right-4 w-72 bg-white border shadow-lg rounded-xl p-4 z-50">
+      <h3 className="text-lg font-bold text-red-600 mb-3">🛒 Carrito</h3>
+      {cartItems.length === 0 ? (
+        <p className="text-gray-500 text-sm">Tu carrito está vacío</p>
+      ) : (
+        <ul className="space-y-2 max-h-40 overflow-y-auto">
+          {cartItems.map((item) => (
+            <li key={item.title} className="flex justify-between text-sm">
+              <span>{item.title} x{item.quantity}</span>
+              <button
+                onClick={() => removeFromCart(item.title)}
+                className="text-red-500 hover:underline"
+              >
+                Quitar
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="mt-4 text-right font-bold text-red-600">
+        Total: S/ {total.toFixed(2)}
+      </p>
+    </div>
+    </>
   );
 }
