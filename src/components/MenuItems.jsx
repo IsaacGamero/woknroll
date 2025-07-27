@@ -1,13 +1,11 @@
 export default function MenuItem({ item, onAdd }) {
   return (
-    <div className="bg-white shadow rounded-xl p-4 border border-red-100 flex flex-col justify-between">
-      <div>
-        <h3 className="text-lg font-bold text-gray-800">{item.name}</h3>
-        <p className="text-red-500 font-semibold mt-1">S/ {item.price.toFixed(2)}</p>
-      </div>
+    <div className="bg-white p-4 rounded-xl shadow-md">
+      <h3 className="text-lg font-semibold">{item.name}</h3>
+      <p className="text-sm text-gray-600">S/ {item.price.toFixed(2)}</p>
       <button
         onClick={() => onAdd(item)}
-        className="mt-4 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition"
+        className="mt-2 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition"
       >
         Agregar al carrito
       </button>

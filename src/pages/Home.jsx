@@ -1,5 +1,6 @@
 import PromoCard from '../components/PromoCard';
-import { useState } from 'react';
+import { useCart } from '../context/useCart';
+import { Link } from "react-router-dom";
 
 function scrollLeftPromos() {
   const container = document.getElementById("promo-scroll-promos");
@@ -21,32 +22,8 @@ function scrollRightBest() {
 }
 
 export default function Home() {
-  const [cartItems, setCartItems] = useState([]);
+  const { cartItems, addToCart, removeFromCart, total } = useCart();
 
-  const addToCart = (item) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.title === item.title);
-      if (existing) {
-        return prev.map((i) =>
-          i.title === item.title ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        return [...prev, { ...item, quantity: 1 }];
-      }
-    });
-  };
-
-  const removeFromCart = (title) => {
-    setCartItems((prev) =>
-      prev
-        .map((i) =>
-          i.title === title ? { ...i, quantity: i.quantity - 1 } : i
-        )
-        .filter((i) => i.quantity > 0)
-    );
-  };
-
-  const total = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
    return (
     <><div className="overflow-x-hidden"><div className="text-center p-10 bg-gradient-to-b from-red-100 to-white min-screen">
       <div className="max-md mx-auto">
@@ -71,14 +48,14 @@ export default function Home() {
         ◀</button>
         {/*Promociones*/}
         <div id="promo-scroll-promos" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4" style={{ maxWidth: '1472px' }}>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" onAdd={addToCart} />
-          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" onAdd={addToCart}/>
-          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" onAdd={addToCart}/>
-          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" onAdd={addToCart}/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard id={1} title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" onAdd={addToCart} />
+          <PromoCard id={2} title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" onAdd={addToCart}/>
+          <PromoCard id={3} title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" onAdd={addToCart}/>
+          <PromoCard id={4} title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" onAdd={addToCart}/>
+          <PromoCard id={5} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard id={6} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard id={7} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
+          <PromoCard id={8} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
         </div>
         {/* Flecha derecha */}
         <button
@@ -98,14 +75,14 @@ export default function Home() {
         ◀</button>
         <h2 className="text-3xl font-bold text-red-600 mb-6">🔥 Más Vendidos</h2>
         <div id="promo-scroll-vendidos" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4"  style={{ maxWidth: '1472px' }}>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
-          <PromoCard title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={9} title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={10} title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={11} title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={12} title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={13} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={14} title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={15} title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
+          <PromoCard id={16} title="Combo Chaufa" desc="Arroz chaufa + bebida" img="chaufa.png" price={19.90} onAdd={addToCart}/>
           
         </div>
         <button
@@ -153,7 +130,7 @@ export default function Home() {
             <li key={item.title} className="flex justify-between text-sm">
               <span>{item.title} x{item.quantity}</span>
               <button
-                onClick={() => removeFromCart(item.title)}
+                onClick={() => removeFromCart(item.id)}
                 className="text-red-500 hover:underline"
               >
                 Quitar
@@ -166,6 +143,12 @@ export default function Home() {
         Total: S/ {total.toFixed(2)}
       </p>
     </div>
+    <Link
+  to="/carrito"
+  className="fixed bottom-20 left-4 bg-red-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-red-700 transition z-50 text-sm"
+>
+  Ver carrito 🛒 ({cartItems.reduce((sum, i) => sum + i.quantity, 0)})
+</Link>
     </>
   );
 }
