@@ -19,7 +19,7 @@ export default function CartPage() {
             {cartItems.map((item) => (
               <li key={item.id} className="flex justify-between items-center py-4">
                 <div>
-                  <h3 className="text-lg font-semibold">{item.name}</h3>
+                  <h3 className="text-lg text-gray-600 font-semibold">{item.name}</h3>
                   <p className="text-sm text-gray-600">Cantidad: {item.quantity}</p>
                 </div>
                 <div className="text-right">

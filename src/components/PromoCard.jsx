@@ -1,20 +1,20 @@
 import { useCart } from '../context/useCart';
 
-export default function PromoCard({ id, title, desc, img, price }) {
+export default function PromoCard({ id, name, desc, img, price }) {
   const { addToCart } = useCart();
 
   return (
     <div className="min-w-[250px] max-w-[250px] h-[330px] flex-shrink-0 bg-white rounded-2xl shadow-md overflow-hidden transform hover:scale-105 transition duration-300 flex flex-col">
-      <img src={img} alt={title} className="w-full h-40 object-cover" />
+      <img src={img} alt={name} className="w-full h-40 object-cover" />
       <div className="p-4 flex flex-col justify-between h-full">
         <div>
-          <h3 className="text-lg font-semibold text-red-700">{title}</h3>
+          <h3 className="text-lg font-semibold text-red-700">{name}</h3>
           <p className="text-sm text-gray-600">{desc}</p>
           {price && <p className="mt-1 text-red-500 font-bold">S/ {price.toFixed(2)}</p>}
         </div>
         {price && (
           <button
-            onClick={() => addToCart({ id, name: title, price })}
+            onClick={() => addToCart({ id, name: name, price })}
             className="mt-3 bg-red-600 text-white px-4 py-1 rounded-full text-sm hover:bg-red-700 transition"
           >
             Agregar al carrito

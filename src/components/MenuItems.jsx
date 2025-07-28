@@ -1,7 +1,7 @@
 export default function MenuItem({ item, onAdd }) {
   return (
     <div className="bg-white p-4 rounded-xl shadow-md">
-      <h3 className="text-lg font-semibold">{item.name}</h3>
+      <h3 className="text-lg text-red-600 font-semibold">{item.name}</h3>
       <p className="text-sm text-gray-600">S/ {item.price.toFixed(2)}</p>
       <button
         onClick={() => onAdd(item)}

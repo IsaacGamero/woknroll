@@ -4,18 +4,9 @@ import Cart from '../components/Cart';
 import { useCart } from '../context/useCart';
 import { Link } from 'react-router-dom';
 
-const allItems = [
-  { id: 1, name: "Ramen Clásico", price: 24.90, category: "Ramen" },
-  { id: 2, name: "Udon", price: 26.90, category: "Ramen" },
-  { id: 3, name: "Arroz Chaufa", price: 21.90, category: "Platos Secos" },
-  { id: 4, name: "Soju Uva", price: 18.00, category: "Licores" },
-  { id: 5, name: "Pepero Oreo", price: 10.00, category: "Snacks" },
-  { id: 6, name: "Baolisu Uva", price: 10.00, category: "Bebidas" },
-  { id: 12, name: "Queso Derretido + Salchicha", price: 2.50, category: "Toppings" },
-  { id: 17, name: "Chocopie Doble Chocolate", price: 3.00, category: "Snacks" },
-  { id: 18, name: "Chocopie Original", price: 3.00, category: "Snacks" },
-  { id: 19, name: "Galleta de la fortuna", price: 3.00, category: "Snacks" },
-];
+import { products } from '../data/products';
+
+const allItems = products.filter(p => ["Ramen", "Toppings", "Bebidas", "Licores", "Snacks"].includes(p.category));
 
 const categories = ["Ramen", "Toppings", "Bebidas", "Licores", "Snacks"];
 
@@ -62,12 +53,9 @@ export default function Menu() {
       ) : (
         <ul className="space-y-2 max-h-40 overflow-y-auto">
           {cartItems.map((item) => (
-            <li key={item.title} className="flex justify-between text-sm">
-              <span>{item.title} x{item.quantity}</span>
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="text-red-500 hover:underline"
-              >
+            <li key={item.id} className="flex justify-between text-sm text-gray-800">
+              <span>{item.name} x{item.quantity}</span>
+              <button onClick={() => removeFromCart(item.id)} className="text-red-600 hover:underline">
                 Quitar
               </button>
             </li>

@@ -1,6 +1,9 @@
 import PromoCard from '../components/PromoCard';
 import { useCart } from '../context/useCart';
 import { Link } from "react-router-dom";
+import { products } from '../data/products';
+
+const promos = products.filter(p => p.category === "Promociones");
 
 function scrollLeftPromos() {
   const container = document.getElementById("promo-scroll-promos");
@@ -47,16 +50,11 @@ export default function Home() {
         className="absolute left-0 top-1/2 -translate-y-1/2 bg-black rounded-full shadow p-2 z-10 hidden md:block">
         ◀</button>
         {/*Promociones*/}
-        <div id="promo-scroll-promos" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4" style={{ maxWidth: '1472px' }}>
-          <PromoCard id={1} title="Combo Chaufa" desc="Arroz chaufa + bebida por solo S/19.90" img="chaufa.png" onAdd={addToCart} />
-          <PromoCard id={2} title="2x1 en Ramen" desc="Todos los martes, ¡lleva dos ramen por el precio de uno!" img="ramen.png" onAdd={addToCart}/>
-          <PromoCard id={3} title="Sushi Lovers" desc="15 piezas surtidas a solo S/24.90" img="sushi.png" onAdd={addToCart}/>
-          <PromoCard id={4} title="Oferta Primavera" desc="Noodles con bebida por solo S/16.90" img="noodles.png" onAdd={addToCart}/>
-          <PromoCard id={5} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard id={6} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard id={7} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-          <PromoCard id={8} title="Menú Ejecutivo" desc="Sopa + chaufa + bebida por S/20" img="ejecutivo.png" onAdd={addToCart}/>
-        </div>
+        <div id="promo-scroll" className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-4" style={{ maxWidth: '1472px' }}>
+              {promos.map(promo => (
+                <PromoCard key={promo.id} {...promo} />
+              ))}
+            </div>
         {/* Flecha derecha */}
         <button
           onClick={() => scrollRightPromos()}
@@ -127,12 +125,9 @@ export default function Home() {
       ) : (
         <ul className="space-y-2 max-h-40 overflow-y-auto">
           {cartItems.map((item) => (
-            <li key={item.title} className="flex justify-between text-sm">
-              <span>{item.title} x{item.quantity}</span>
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="text-red-500 hover:underline"
-              >
+            <li key={item.id} className="flex justify-between text-sm text-gray-800">
+              <span>{item.name} x{item.quantity}</span>
+              <button onClick={() => removeFromCart(item.id)} className="text-red-600 hover:underline">
                 Quitar
               </button>
             </li>
